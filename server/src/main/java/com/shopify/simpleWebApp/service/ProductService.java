@@ -4,7 +4,9 @@ import com.shopify.simpleWebApp.model.Product;
 import com.shopify.simpleWebApp.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +27,11 @@ public class ProductService {
         return productRepository.findById(prodId).orElse(null);
     }
 
-    public void addProduct(Product product) {
-        productRepository.save(product);
+    public Product addProduct(Product product, MultipartFile imageFile) throws IOException {
+        product.setImageName(imageFile.getOriginalFilename());
+        product.setImageType(imageFile.getContentType());
+        product.setImageData(imageFile.getBytes());
+        return productRepository.save(product);
     }
 
     public void updateProduct(Product product) {
