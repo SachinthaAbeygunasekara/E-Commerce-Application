@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@CrossOrigin
+@RequestMapping("/api")
 public class ProductController {
 
-    ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
-    @GetMapping()
+    @GetMapping("/products")
     public List<Product> getProducts(){
         return productService.getProducts();
     }
