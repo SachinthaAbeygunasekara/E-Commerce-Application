@@ -3,6 +3,8 @@ package com.shopify.simpleWebApp.controller;
 import com.shopify.simpleWebApp.model.Product;
 import com.shopify.simpleWebApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +21,19 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getProducts(){
-        return productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts(){
+        return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
 
     @GetMapping("/product/{id}")
-    public Product getProductsById(@PathVariable int id){
-        return productService.getProductsById(id);
+    public ResponseEntity<Product> getProductsById(@PathVariable int id){
+        Product product = productService.getProductsById(id);
+        if (product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/add")
