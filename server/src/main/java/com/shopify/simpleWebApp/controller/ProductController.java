@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService productService;
+    ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -28,9 +28,19 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public void addProducts(@RequestBody  Product product){
+    public void addProduct(@RequestBody  Product product){
         System.out.println("Adding.........");
         productService.addProduct(product);
+    }
+
+    @PutMapping("/update")
+    public void updateProduct(@RequestBody Product product){
+        productService.updateProduct(product);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteProduct(@PathVariable int id){
+        productService.deleteProduct(id);
     }
 
 }
