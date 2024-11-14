@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../Context/Context";
 import axios from "axios";
-import CheckoutPopup from "./CheckoutPopup.jsx";
+import CheckoutPopup from "./CheckoutPopup";
 import { Button } from 'react-bootstrap';
 
 const Cart = () => {
@@ -13,7 +13,6 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchImagesAndUpdateCart = async () => {
-      console.log("Cart", cart);
       try {
         const response = await axios.get("http://localhost:8080/api/products");
         const backendProductIds = response.data.map((product) => product.id);

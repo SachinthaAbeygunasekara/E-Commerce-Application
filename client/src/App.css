@@ -211,7 +211,6 @@ border-radius: .5rem;
 
 }
 .container{
-margin-top: 11%;
 max-width: 120rem;
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
@@ -255,8 +254,10 @@ padding-top: 100px;
 
  
 .containers {
+  /* max-width: auto;
+  max-height: 100vh; */
   width: 100%;
-  height: 150vh;
+  height: 100%;
   
   margin: 0 auto;
   padding: 15px;
@@ -426,7 +427,11 @@ padding-top: 100px;
 }
 /* <....................................Add Product................................................> */
 
-
+.update-product-container{
+  width: 100%;
+  height: 100vh;
+  background-color: var(--body_background);
+}
 .container{
   background-color: var(--body_background) !important;
   color: var(--body_color) !important;
@@ -443,7 +448,6 @@ padding-top: 100px;
   color: var(--para-clr);
   transform: translate(-50%, -50%);
   background-color: var(--body_background) !important;
-  /* padding-top: 12%; */
 }
 
 .center-container .image-control {
@@ -709,14 +713,4 @@ color: var(--quantity-clr);
 }
 .checkoutPopup {
   background-color: var(--body_background) !important;
-}
-
-
-/* <........................................Update Product.......................................> */
-
-.update-product-container {
-  background-color: var(--body_background);
-  width: 100%;
-  min-height: 150vh;
-  box-sizing: border-box; 
 }

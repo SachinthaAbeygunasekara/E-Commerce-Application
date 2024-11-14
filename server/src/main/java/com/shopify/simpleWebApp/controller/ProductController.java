@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -49,14 +50,30 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/update")
-    public void updateProduct(@RequestBody Product product){
-        productService.updateProduct(product);
+    @PutMapping("/product/{productId}")
+    public ResponseEntity<?> updateProduct(@PathVariable int productId, @RequestPart Product product, @RequestPart MultipartFile imageFile){
+        Product updatedProduct = null;
+        try {
+            updatedProduct = productService.updateProduct(productId, product, imageFile);
+        } catch (IOException e) {
+            return new ResponseEntity<>("Failed to updated", HttpStatus.BAD_REQUEST);
+        }
+        if (updatedProduct != null){
+            return new ResponseEntity<>("Updated", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Failed to updated", HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteProduct(@PathVariable int id){
-        productService.deleteProduct(id);
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable int id){
+        Product product = productService.getProductsById(id);
+        if (product != null){
+            productService.deleteProduct(id);
+            return new ResponseEntity<>("Deleted", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/product/{productId}/image")
