@@ -36,7 +36,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
       setShowSearchResults(true)
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/products/search?name=${value}`
+        `http://localhost:8080/api/products/search?keyword=${value}`
       );
       setSearchResults(response.data);
       setNoResults(response.data.length === 0);
@@ -50,6 +50,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
       setNoResults(false);
     }
   };
+
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     onSelectCategory(category);
@@ -78,7 +79,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
         <nav className="navbar navbar-expand-lg fixed-top">
           <div className="container-fluid">
             <a className="navbar-brand" href="https://telusko.com/">
-              Telusko
+            Shopify
             </a>
             <button
               className="navbar-toggler"

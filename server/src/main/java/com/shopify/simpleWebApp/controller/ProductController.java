@@ -85,4 +85,11 @@ public class ProductController {
                 .body(imageData);
     }
 
+    @GetMapping("/products/search")
+    public ResponseEntity<List<Product>> searchProducts(String keyword){
+        System.out.println("Searching with keyword: " + keyword);
+        List<Product> products = productService.searchProducts(keyword);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
 }
